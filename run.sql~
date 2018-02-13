@@ -1,0 +1,159 @@
+use website;
+
+drop table if exists UserAccount;
+drop table if exists Institution;
+drop table if exists Category;
+drop table if exists Subcategory;
+drop table if exists Transaction;
+drop table if exists Goals;
+
+create table UserAccount (
+CLID		varchar(7) not null,
+fname		varchar(12),
+lname		varchar(12),
+user_password	varchar(16),
+checking	int(12),
+balance 	dec(9,2) not null,
+savings		int(12),
+sbalance	dec(9,2) not null,
+primary key(CLID),
+UNIQUE (CLID, checking, balance) 
+);
+
+INSERT INTO UserAccount 
+VALUES 	('admin','','','admin','','','',''),
+	('EJS9849','Erik','Schneider','password','123456','0','101100','20'),
+	('PTC3456','Patrick','Charles','lemonsquares','789012','800','234567','40'),
+	('KMP8690','Kevin','Pearson','lol','666222','9', '153573','600'),
+	('SFH6490','Sean','Hungerford','canyousmellwhattherockiscooking','124680','0','299038','3'),
+	('BOB2341','Bob','Bobbington','bobbyBoy721x9','434575','90','124909','65'),
+	('JRM9080','Joanna','Manuel','nightingaleSinger','123414','80','593472','135'),
+	('MDU9323','Meredith','Undertaker','FeArMEE','173913','12','896477','3000');
+
+INSERT INTO UserAccount
+VALUES ('AAA1111', 'Afirst','Alast','asdfasdfasdf','111111', '1000','101010','1000'),
+('BBB1111', 'Bob','Bobb','200','222222', '2000','201010','2000'),
+('CCC1111', 'Claire','Claireson','308','333333', '306','301010','3600'),
+('EEE1111', 'Ein','Stein','4000','441111', '4000','401010','4000'),
+('FFF1111', 'John','LastName','5000','611111', '8000','801010','8000'),
+('GGG1111', 'George','Man','8800','881111', '8800','881010','8900');
+
+create table Institution(
+ID_no		int(3) NOT NULL AUTO_INCREMENT,
+name		varchar(20),
+cat_category	varchar(12),
+cat_subcategory	varchar(12),
+primary key(ID_no)
+);
+
+
+insert into Institution values('','RedRocket AutoShop','Automobile','Maintenance');
+insert into Institution values('','Scammers R Us Insurance Company','Automobile','Loan Payment');
+insert into Institution values('','Sad Babies Foundation','Charity','');
+insert into Institution values('','Boots and Belts Emporium','Clothing','');
+insert into Institution values('','Posterboards Outlet Store','Education','Books');
+insert into Institution values('','Purgatory Loan Officers','Education','Student Loan Payment');
+insert into Institution values('','Yum Yum Dining','Food','Dining Out');
+insert into Institution values('','Dr. Crown','Healthcare','Dental');
+
+insert into Institution values('', 'Johns','Automobile','Maintenance');
+insert into Institution values('','Bobs Insurance','Insurance','Health');
+insert into Institution values('','The Club','Entertainment','Reading material');
+insert into Institution values('','Health and Wellness','Healthcare','Medical');
+insert into Institution values('','Health Vision','Healthcare','Vision');
+insert into Institution values('','Our Insurance','Insurance','Health');
+insert into Institution values('','The Pizza Place','Food','Dining Out');
+insert into Institution values('','The Insurance Specialists','Insurance','Health');
+
+create table Category(
+cat_ID			int(3) NOT NULL AUTO_INCREMENT,
+type			char(12),
+name			varchar(20),
+subcategory		varchar(20),
+primary key (cat_ID)
+);
+
+insert into Category values('','income','paycheck','');
+insert into Category values('','income','miscellaneous income','' );
+insert into Category values('','expense','gasoline','Automobile' );
+insert into Category values('','expense','maintenance','Automobile' );
+insert into Category values('','expense','auto loan payment','Automobile' );
+insert into Category values('','expense','','Charity' );
+insert into Category values('','expense','','Clothing' );
+insert into Category values('','expense','tuition','Education' );
+insert into Category values('','expense','books','Automobile' );
+insert into Category values('','expense','student loan payment','Automobile' );
+insert into Category values('','expense','groceries','Food' );
+insert into Category values('','expense','dining out','Food' );
+insert into Category values('','expense','dental','Healthcare' );
+insert into Category values('','expense','vision','Healthcare' );
+insert into Category values('','expense','medical','Healthcare' );
+insert into Category values('','expense','rent/mortgage payment','Household' );
+insert into Category values('','expense','utilities','Household' );
+insert into Category values('','expense','automobile','Insurance' );
+insert into Category values('','expense','health','Insurance' );
+insert into Category values('','expense','reading material','Entertainment' );
+insert into Category values('','expense','movies','Entertainment' );
+insert into Category values('','expense','sporting events','Entertainment' );
+insert into Category values('','expense','sporting goods','Entertainment' );
+insert into Category values('','expense','','Transfer to Savings' );
+insert into Category values('','expense','','Miscellaneous' );
+
+create table Subcategory(
+sub_cat_ID		int(3) NOT NULL AUTO_INCREMENT,
+sub_name		varchar(20),
+category_name		varchar(20),
+primary key (sub_cat_ID)
+);
+
+insert into Subcategory Values('','Reading Material','Entertainment');
+insert into Subcategory Values('','Movies','Entertainment');
+insert into Subcategory Values('','Dental','Healthcare');
+insert into Subcategory Values('','Tuition','Education');
+insert into Subcategory Values('','Books','Education');
+
+
+create table Transaction(
+
+user_CLID		char(7),
+transaction_id		int(16) NOT NULL AUTO_INCREMENT,
+amount			dec(9,2) not null,
+inst_name		varchar(12),
+inst_category		varchar(12),
+inst_subcategory	varchar(12),
+check_num		int(10),
+transaction_date	int(8),
+primary key(transaction_id)
+);
+
+insert into Transaction values('BOB2341','','100','walmart','income','paycheck','12345','20150101');
+insert into Transaction values('','100','wfglmart','income',' ','12345','20151101');
+insert into Transaction values('BOB2341','','100','walrt','expense','paycheck','12345','20150121');
+insert into Transaction values
+('BOB2341','','100','wmart','income','paycheck','12345','20150401');
+insert into Transaction values('BOB2341','','100','hfglmart','income','paycheck','12345','20150131');
+
+
+
+
+create table Goals(
+goals_id		int(4) NOT NULL AUTO_INCREMENT,
+user_CLID		char(7),
+inst_category		varchar(20),
+inst_subcategory	varchar(20),
+goal_amount		decimal,
+primary key(goals_id)
+);
+insert into Goals Values('','ejs9849','Food','Dining out','50');
+insert into Goals Values('','ejs9849','Food','Groceries','300');
+insert into Goals Values('','ejs9849','Entertainment','Movies','600');
+insert into Goals Values('','ejs9849','Misc.','','200');
+insert into Goals Values('','ejs9849','Household','Utilities','80');
+
+describe UserAccount;
+describe Institution;
+describe Category;
+describe Subcategory;
+describe Transaction;
+describe Goals;
+
